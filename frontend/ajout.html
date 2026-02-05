@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* Réinitialisation et styles de base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        /* Formulaire */
+        form {
+            background-color: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            max-width: 500px;
+            width: 100%;
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Titre */
+        form h1 {
+            text-align: center;
+            color: #667eea;
+            font-size: 2em;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        /* Labels */
+        label {
+            display: block;
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+            margin-top: 20px;
+        }
+
+        label:first-of-type {
+            margin-top: 0;
+        }
+
+        /* Input et Textarea */
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 15px;
+            font-family: inherit;
+            transition: all 0.3s ease;
+            background-color: #f8f9fa;
+        }
+
+        input[type="text"]:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            background-color: white;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        textarea::placeholder {
+            color: #999;
+            font-style: italic;
+        }
+
+        /* Bouton */
+        button[type="submit"] {
+            width: 100%;
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 30px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(17, 153, 142, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        button[type="submit"]:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(17, 153, 142, 0.6);
+        }
+
+        button[type="submit"]:active {
+            transform: translateY(-1px);
+        }
+
+        /* Lien retour (optionnel) */
+        .back-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .back-link a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .back-link a:hover {
+            color: #764ba2;
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            form {
+                padding: 25px;
+            }
+
+            form h1 {
+                font-size: 1.5em;
+            }
+
+            button[type="submit"] {
+                font-size: 16px;
+                padding: 12px;
+            }
+        }
+
+        /* Animation pour les champs */
+        input[type="text"],
+        textarea {
+            animation: fadeIn 0.6s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateX(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <form action="" method="post">
+        <h1>ajouté une tache</h1>
+        <label for="nom">nom de la tache</label>
+        <input type="text" name="nom">
+        <label for="description">Decriver votre tache</label>
+        <textarea name="description" id="" placeholder="Ecrivez ici"></textarea>
+        <button type="submit">enregistrer</button>
+    </form>
+    <script>
+        // je vais recuperer la balise du input
+        const nom = document.querySelector('input')
+        // console.log(nom)
+        // on recupere la balise de la description
+        const description = document.querySelector('textarea')
+        // console.log(description)
+        // on vas recuperer le form pour plus tard lui appliquer un ecouteur d'evenement
+        const form= document.querySelector('form')
+        // console.log(form) 
+        // on vas recuperer les information qui seront saisi dans le input
+        // la on vas stocker le nom de la tache
+        let nom_tache=""
+        nom.addEventListener("input",(e)=>{ //on applique l'ecouteur keypress pour recuperer ce qui vas etre saisi 
+            // console.log(e.target.value)
+            nom_tache = e.target.value
+            // console.log(nom_tache)
+            
+        })
+
+        // on vas maintenant recuperer la description de la tache
+        // la on vas stocker la description 
+        let decri_tache=""
+        description.addEventListener("keypress",(e)=>{
+            // console.log(e.target.value)
+            decri_tache = e.target.value
+            // console.log(decri_tache)
+        })
+
+        // on vas ajouter a form l'ecouteur submit pour envoyer nos données
+        form.addEventListener("submit",(e)=>{
+            e.preventDefault()
+            const tache = {
+                Nom: nom_tache,
+                Description: decri_tache
+            }
+            // on vas utiliser la methode fecth pour envoyer les donnée
+            try{
+                // ici on vas cree une variable pour envoyer le formulaire a cette address 
+                // dans le fetch on ajoute l'entete
+                // dans cette entete on vas ajouter la methode post puis le header pour dire quel est le format des données (json)
+                // et enfin on vas mettre dans le body la constante qui contient les données en json dans le body avec JSON.stringify()
+                // on vas recuperer le token renvoyer par le serveur 
+                const token = localStorage.getItem('token');  //important de recuperer le token sauvegarder afin de l'ajouter dans l'entete de notre requette fetch
+                fetch(`http://localhost:3000/api/tache/ajout`, { 
+                method: "POST", 
+                headers: { 
+                    "Content-Type": "application/json", //on precise sous quel format on veut envoyer nos donne
+                    "Authorization": `Bearer ${token}` //la on ajoute le token sauvegarder 
+                }, 
+                body: JSON.stringify(tache) //la on converti nos donnée sous le format json 
+            }   )  
+                    .then(reponse => reponse.json()) //on recupere la reponse du serveur 
+                    .then(ok=>{ //la on verife si tout a bien ete creer 
+                        if(ok){
+                            alert("tache creer") //on indique que touta ete creer avec succes
+                            window.location.href = "accueil.html" //et on redirige vers la page d'acceuil
+
+                        }
+            });
+
+            }catch(error){
+                console.log("une erreure est survenu", error)
+            }             
+
+        })
+    </script>
+</body>
+</html>
